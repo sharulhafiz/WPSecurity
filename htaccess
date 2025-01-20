@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Forbidden access
+RewriteRule ^search(/.*)?$ - [NC,F] # Block invalid search page
+RewriteRule ^social-media(/.*)?$ - [NC,F]
+RewriteRule ^quotes(/.*)?$ - [NC,F]
+RewriteRule ^wp-content/themes/(?!Divi).* - [NC,F]
+RewriteRule ^connect(/.*)?$ - [NC,F]
+RewriteRule ^author(/.*)?$ - [NC,F] # Block author page
+
+# Block POST requests to /wp-login.php
+RewriteCond %{REQUEST_METHOD} POST
+RewriteRule ^wp-login\.php$ - [F]
+
+# Block long search queries
+RewriteCond %{QUERY_STRING} .{51,} [NC]
+RewriteRule ^search - [F]
